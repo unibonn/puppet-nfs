@@ -24,7 +24,9 @@
 
 This module installs, configures and manages everything on NFS clients and servers.
 
-Github Master: [![Build Status](https://secure.travis-ci.org/echocat/puppet-nfs.png?branch=master)](https://travis-ci.org/echocat/puppet-nfs)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/echocat/nfs.svg)](https://forge.puppetlabs.com/echocat/nfs)
+[![Build Status](https://secure.travis-ci.org/echocat/puppet-nfs.png?branch=master)](https://travis-ci.org/echocat/puppet-nfs)
+[![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/echocat/nfs.svg)](https://forge.puppetlabs.com/echocat/nfs) 
 
 ##Module Description
 
