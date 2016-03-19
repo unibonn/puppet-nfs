@@ -1,3 +1,10 @@
+## 2016-03-19 - 1.8.1 (Bugfix release)
+
+#### Bugfixes:
+
+- (60cfca6) #68 recognize newer releases of Amazon Linux
+- (be6b4af) Debian: rpcmountdopts has double quotes
+
 ## 2016-01-18 - 1.8.0 (Feature release)
 
 *Warning:* Requires [puppetlabs-stdlib](https://github.com/puppetlabs/puppetlabs-stdlib) > =4.8.0 !
