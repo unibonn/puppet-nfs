@@ -37,7 +37,8 @@
       "operatingsystemrelease": [
         "10.04",
         "12.04",
-        "14.04"
+        "14.04",
+        "16.04"
       ]
     },
     {
@@ -60,7 +61,7 @@
     }
   ],
   "name": "echocat-nfs",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "source": "https://github.com/echocat/puppet-nfs.git",
   "author": "echocat",
   "license": "Apache-2.0",
