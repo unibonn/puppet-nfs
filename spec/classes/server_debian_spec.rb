@@ -17,14 +17,7 @@ describe 'nfs::server::debian', :type => :class do
   context "mountd params set port" do
     let(:params) {{ :mountd_port => '4711' }}
     it do
-      should contain_file_line('rpc-mount-options-port') #.with( 'ensure' => 'present' )
-    end
-  end
-
-  context "mountd params set threads" do
-    let(:params) {{ :mountd_threads => '11' }}
-    it do
-      should contain_file_line('rpc-mount-options-threads') #.with( 'ensure' => 'present' )
+      should contain_file_line('rpc-mount-options') #.with( 'ensure' => 'present' )
     end
   end
 

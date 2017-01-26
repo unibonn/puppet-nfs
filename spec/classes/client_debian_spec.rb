@@ -1,7 +1,12 @@
 require 'spec_helper'
 describe 'nfs::client::debian' do
 
-  let(:params) {{ :package_ensure => 'installed' }}
+  let(:facts) do
+    facts
+  end
+  let :pre_condition do 
+    'include ::params'
+  end
 
   it do
     should contain_class('nfs::client::debian::install')
