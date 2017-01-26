@@ -5,7 +5,7 @@ describe 'nfs::client::debian' do
     facts
   end
   let :pre_condition do 
-    'include ::params'
+    'include ::nfs::client'
   end
 
   it do
