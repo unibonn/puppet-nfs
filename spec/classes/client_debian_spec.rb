@@ -1,6 +1,8 @@
 require 'spec_helper'
 describe 'nfs::client::debian' do
 
+  let(:params) {{ :package_ensure = installed }}
+
   it do
     should contain_class('nfs::client::debian::install')
     should contain_class('nfs::client::debian::configure')

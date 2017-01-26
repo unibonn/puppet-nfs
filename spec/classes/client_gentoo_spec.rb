@@ -1,6 +1,8 @@
 require 'spec_helper'
 describe 'nfs::client::gentoo' do
 
+  let(:params) {{ :package_ensure = installed }}
+
   it do
     should contain_class('nfs::client::gentoo')
     should contain_class('nfs::client::gentoo::install')
