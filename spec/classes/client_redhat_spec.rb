@@ -1,5 +1,8 @@
 require 'spec_helper'
 describe 'nfs::client::redhat' do
+
+  let(:params) {{ :package_ensure => 'installed' }}
+
   context "operatingsystemrelease => 7.0" do
     let(:facts) { {:operatingsystemrelease => '7.0' } }
     it do

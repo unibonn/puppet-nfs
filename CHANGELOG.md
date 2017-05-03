@@ -1,3 +1,15 @@
+## 2017-01-26 - 1.9.0 (Feature release)
+
+#### Bugfixes:
+
+- fix mountd thread number parameter for nfs server
+
+#### Features:
+
+- set specific version of nfs client packages with `package_ensure`
+- allow client mounts to be defined in Hiera
+- Ubuntu: support 16.04
+
 ## 2016-03-19 - 1.8.1 (Bugfix release)
 
 #### Bugfixes:

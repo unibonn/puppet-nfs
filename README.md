@@ -1,16 +1,16 @@
-#nfs
+# nfs
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview - What is the nfs module?](#overview)
 2. [Module Description - What does this module do?](#module-description)
 3. [Setup - The basics of getting started with nfs](#setup)
     * [Simple mount an nfs share](#simple-mount-nfs-share)
-    * [NFSv3 server and client] (#nfsv3-server-and-client)
-    * [NFSv3 multiple exports, servers and multiple node] (#nfsv3-multiple-exports-servers-and-multiple-node)
-    * [NFSv4 Simple example] (#nfsv4-simple-example)
-    * [NFSv4 insanely overcomplicated reference] (#nfsv4-insanely-overcomplicated-reference)
-    * [A large number of clients] (#a-large-number-of-clients)
+    * [NFSv3 server and client](#nfsv3-server-and-client)
+    * [NFSv3 multiple exports, servers and multiple node](#nfsv3-multiple-exports-servers-and-multiple-node)
+    * [NFSv4 Simple example](#nfsv4-simple-example)
+    * [NFSv4 insanely overcomplicated reference](#nfsv4-insanely-overcomplicated-reference)
+    * [A large number of clients](#a-large-number-of-clients)
 4. [Usage - The classes and defined types available for configuration](#usage)
     * [Class: nfs::server](#class-nfsserver)
     * [Defined Type: nfs::server::export](#defined-type-nfsserverexport)
@@ -20,7 +20,7 @@
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Contributing to the graphite module](#contributing)
 
-##Overview
+## Overview
 
 This module installs, configures and manages everything on NFS clients and servers.
 
@@ -28,19 +28,19 @@ This module installs, configures and manages everything on NFS clients and serve
 [![Build Status](https://secure.travis-ci.org/echocat/puppet-nfs.png?branch=master)](https://travis-ci.org/echocat/puppet-nfs)
 [![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/echocat/nfs.svg)](https://forge.puppetlabs.com/echocat/nfs) 
 
-##Module Description
+## Module Description
 
 This module can be used to simply mount nfs shares on a client or to configure your nfs servers.
 It can make use of storeconfigs on the puppetmaster to get its resources. 
 
-##Setup
+## Setup
 
 **What nfs affects:**
 
 * packages/services/configuration files for NFS usage
 * can be used with puppet storage
 
-###Simple mount nfs share
+### Simple mount nfs share
 
 This example mounts a nfs share on the client, with NFSv3
 
@@ -54,7 +54,7 @@ include '::nfs::client'
 }
 ```
 
-###NFSv3 server and client
+### NFSv3 server and client
 
 This will export /data/folder on the server and automagically mount it on client.
 You need storeconfigs/puppetdb for this to work.
@@ -80,7 +80,7 @@ node client {
 }
 ```
 
-###NFSv3 multiple exports, servers and multiple node
+### NFSv3 multiple exports, servers and multiple node
 
 ```puppet
   node server1 {
@@ -148,7 +148,7 @@ node client {
   }
 ```
 
-###NFSv4 Simple example
+### NFSv4 Simple example
 
 We use the `$::domain` fact for the Domain setting in `/etc/idmapd.conf`.
 For NFSv4 to work this has to be equal on servers and clients
@@ -217,7 +217,7 @@ node client2 {
 }
 ```
 
-###NFSv4 insanely overcomplicated reference
+### NFSv4 insanely overcomplicated reference
 
 Just to show you, how complex we can make things ;-)
 
@@ -327,34 +327,38 @@ nfs::server::export {'/data':
 
 You can also give options to each host in a hash, and then use the stdlib keys() function to extract the client array from the hash: `mk_client_list(keys($client_hash), $client_hash, '')`
 
-##Usage
+## Usage
 
-####Class: `nfs::server`
+#### Class: `nfs::server`
 
 Set up NFS server and exports. NFSv3 and NFSv4 supported.
 
 **Parameters within `nfs::server`:**
 
-#####`service_manage` (true)
+##### `service_manage` (true)
 
 Should this class manage the services behind nfs? Set this to false
 if you are managing the service in another way (e.g. pacemaker).
 
-#####`nfs_v4` (optional)
+##### `package_ensure` (installed)
+
+Allow to update or set to a specific version the nfs server packages.
+
+##### `nfs_v4` (optional)
 
 NFSv4 support. Will set up automatic bind mounts to export root.
 Disabled by default.
 
-#####`nfs_v4_export_root` (optional)
+##### `nfs_v4_export_root` (optional)
 
 Export root, where we bind mount shares, default /export
 
-#####`nfs_v4_idmap_domain` (optional)
+##### `nfs_v4_idmap_domain` (optional)
 
 Domain setting for idmapd, must be the same across server
 and clients. Default is to use $domain fact.
 
-#####`exports` (optional)
+##### `exports` (optional)
 
 If set, this attribute will be used to
 construct nfs::server::export resources. You can use you ENC or hiera to
@@ -367,7 +371,7 @@ nfs::server::exports:
     clients: '*(fsid=0,ro,insecure,async,all_squash,no_subtree_check,mountpoint=/mnt/something)'
 ```
 
-#####Examples
+##### Examples
 
 ```puppet
 class { '::nfs::server':
@@ -379,65 +383,66 @@ class { '::nfs::server':
 }
 ```
 
-####Defined Type: `nfs::server::export`
+#### Defined Type: `nfs::server::export`
 
 Set up NFS export on the server (and stores data in configstore)
 
 **Parameters within `nfs::server::export`:**
 
-#####`v3_export_name` (optional)
+##### `v3_export_name` (optional)
 
 Default is `$name`. Usally you do not set it explicit.
 
-#####`v4_export_name` (optional)
+##### `v4_export_name` (optional)
 
 Default results from `$name`. Usally you do not set it explicit.
 
-#####`ensure` (optional)
+##### `ensure` (optional)
 
 Default is 'mounted'
 
-#####`bind` (optional)
+##### `bind` (optional)
 
 Default is 'rbind'. 
 rbind or bind mounting of folders bindmounted into /export. Google it!
 
 **Following parameteres are propogated by to storeconfigs to clients**
 
-#####`mount` (optional)
+##### `mount` (optional)
 
 Default is undef. This means client mount path is the same as server export path.
 Directory where we want export mounted on client 
 
-#####`remounts` (optional)
+##### `remounts` (optional)
 
 Default is false.
 
-#####`atboot` (optional)
+##### `atboot` (optional)
 
 Default is false.
 
-#####`options` (optional)
+##### `options` (optional)
 
 Default is '_netdev'. Don't remove that option, but feel free to add more.
 
-#####`bindmount` (optional)
+##### `bindmount` (optional)
 
 Default is undef. If set will mount share inside /srv (or overridden mount_root)
 and then bindmount to another directory elsewhere in the fs - for fanatics.
 
-#####`nfstag` (optional)
+##### `nfstag` (optional)
 
 Default is undef. Used to identify a catalog item for filtering by storeconfigs on clients.
 
-#####`clients` (optional)
+##### `clients` (optional)
 
 Default is 'localhost(ro)'. Copied directly into /etc/exports as a string, for simplicity.
 
-#####`server` (optional)
+##### `server` (optional)
 
 Default is `$::clientcert`. Used to specify a other ip/name for the client to connect to. Usefull in machines with multiple ip addresses or network interfaces
-#####Example
+
+##### Example
 
 ```puppet
 ::nfs::server::export { '/media_library':
@@ -446,27 +451,45 @@ Default is `$::clientcert`. Used to specify a other ip/name for the client to co
 }
 ```
 
-####Class: `nfs::client`
+#### Class: `nfs::client`
 
 Set up NFS client and mounts. NFSv3 and NFSv4 supported.
 
 **Parameters within `nfs::client`:**
 
-#####`nfs_v4`
+##### `package_ensure` (installed)
+
+Allow to update or set to a specific version the nfs client packages.
+
+##### `nfs_v4`
 
 NFSv4 support.
 Disabled by default.
 
-#####`nfs_v4_mount_root`
+##### `nfs_v4_mount_root`
 
 Mount root, where we  mount shares, default /srv
 
-#####`nfs_v4_idmap_domain`
+##### `nfs_v4_idmap_domain`
 
 Domain setting for idmapd, must be the same across server
 and clients. Default is to use $::domain fact.
 
-#####Example
+##### `mounts` (optional)
+
+If set, this attribute will be used to construct nfs::client::mount resources.
+You can use you ENC or hiera to provide the hash of nfs::client::mount
+resources definitions:
+
+```hiera
+nfs::client::mounts:
+  /mnt/test:
+    ensure: 'mounted'
+    server: '192.0.2.100'
+    share:  '/export/data'
+```
+
+##### Example
 
 ```puppet
 class { '::nfs::client':
@@ -477,79 +500,66 @@ class { '::nfs::client':
 }
 ```
 
-####Defined Type: `nfs::client::mount`
+#### Defined Type: `nfs::client::mount`
 
 Set up NFS mount on client.
 
 **Parameters within `nfs::client::mount`:**
 
-#####`server`
+##### `server`
 
 FQDN or IP of the NFS server.
 
-#####`share`
+##### `share`
 
 Name of share to be mounted.
 
-#####`ensure` (optional)
+##### `ensure` (optional)
 
 Default is 'mounted'.
 
-#####`mount` (optional)
+##### `mount` (optional)
 
 Default is `$title` of defined type. Defines mountpoint of the share on the client.
 
-#####`remounts` (optional)
+##### `remounts` (optional)
 
 Default is false.
 
-#####`atboot` (optional)
+##### `atboot` (optional)
 
 Default is false.
 
-#####`options` (optional)
+##### `options` (optional)
 
 Default is '_netdev'. Don't remove that option, but feel free to add more.
 
-#####`bindmount` (optional)
+##### `bindmount` (optional)
 
 Default is undef. If set will mount share inside /srv (or overridden mount_root)
 and then bindmount to another directory elsewhere in the fs - for fanatics.
 
-#####`nfstag` (optional)
+##### `nfstag` (optional)
 
 Default is undef. Used to identify a catalog item for filtering by storeconfigs on clients.
 
-#####`owner` (optional)
+##### `owner` (optional)
 
 Default is 'root'. Sets owner of mountpoint directory. This is applied to the directory on every run, which means it is used both on the base mountpoint creation when unmounted, and also once mounted on the target NFS server and thus all servers accessing the same share.
 
-
-#####`group` (optional)
+##### `group` (optional)
 
 Default is `root`. Sets group of mountpoint directory. This is applied to the directory on every run, which means it is used both on the base mountpoint creation when unmounted, and also once mounted on the target NFS server and thus all servers accessing the same share.
 
-
-#####`perm` (optional)
+##### `perm` (optional)
 
 Default is '0755'. Sets mode of mountpoint directory. This has changed from previous versons which used '0777' (world writable). This is applied to the directory on every run, which means it is used both on the base mountpoint creation when unmounted, and also once mounted on the target NFS server and thus all servers accessing the same share.
 
-
-##Requirements
+## Requirements
 
 If you want to have the full potential of this module its recommend to have storeconfigs enabled.
 
-###Modules needed:
-
-* stdlib by puppetlabs
-* concat by puppetlabs
-
-###Software versions needed:
-
-* facter > 1.6.2
-* puppet > 2.6.2
-
-##Limitations
+## Limitations
 
 ##Contributing
 

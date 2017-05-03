@@ -1,6 +1,8 @@
 require 'spec_helper'
 describe 'nfs::client::ubuntu' do
 
+  let(:params) {{ :package_ensure => 'installed' }}
+
   it do
     should contain_class('nfs::client::ubuntu::install')
     should contain_class('nfs::client::ubuntu::configure')

@@ -12,14 +12,14 @@ describe 'nfs::server::debian', :type => :class do
     it do
       should contain_service('idmapd').with( 'ensure' => 'running'  )
     end
-
   end
-  context "mountd params set" do
+
+  context "mountd params set port" do
     let(:params) {{ :mountd_port => '4711' }}
     it do
       should contain_file_line('rpc-mount-options') #.with( 'ensure' => 'present' )
     end
-
   end
+
 end
 
