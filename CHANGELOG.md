@@ -1,3 +1,8 @@
+## 2019-07-02 - 2.0.0
+
+- remove upper bound of stdlib dependency
+- update meta data to work with puppet 5 and 6
+
 ## 2017-01-26 - 1.9.0 (Feature release)
 
 #### Bugfixes:
