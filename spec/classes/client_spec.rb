@@ -17,6 +17,10 @@ describe 'nfs::client' do
     let(:facts) { {:operatingsystem => 'SLC', :operatingsystemrelease => '6.4' } }
     it { should contain_class('nfs::client::redhat') }
   end
+  context "operatingsysten => centos v8" do
+    let(:facts) { {:operatingsystem => 'centos', :operatingsystemrelease => '8.0' } }
+    it { should contain_class('nfs::client::redhat') }
+  end
   context "operatingsysten => centos v7" do
     let(:facts) { {:operatingsystem => 'centos', :operatingsystemrelease => '7.0' } }
     it { should contain_class('nfs::client::redhat') }
@@ -27,6 +31,10 @@ describe 'nfs::client' do
   end
   context "operatingsysten => centos v5" do
     let(:facts) { {:operatingsystem => 'centos', :operatingsystemrelease => '5.4' } }
+    it { should contain_class('nfs::client::redhat') }
+  end
+  context "operatingsysten => redhat v8" do
+    let(:facts) { {:operatingsystem => 'redhat', :operatingsystemrelease => '8.0' } }
     it { should contain_class('nfs::client::redhat') }
   end
   context "operatingsysten => redhat v7" do
